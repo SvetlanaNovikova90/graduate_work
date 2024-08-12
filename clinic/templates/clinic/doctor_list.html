@@ -14,7 +14,7 @@
       <img class="rounded-circle" src="{{ doctor.image_ph | media_filter}}" alt="Generic placeholder image" width="140" height="140">
       <h2>{{doctor.name}}</h2>
       <p>{{doctor.description | truncatechars:100}}</p>
-      <p><a class="btn btn-secondary" href="#" role="button">Подробнее &raquo;</a></p>
+      <p><a class="btn btn-secondary" href="{% url 'clinic:doctor_detail' doctor.pk %}" role="button">Подробнее &raquo;</a></p>
     </div><!-- /.col-lg-4 -->
     {% endfor %}
   </div><!-- /.row -->

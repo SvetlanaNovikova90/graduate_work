@@ -10,6 +10,7 @@ class User(AbstractUser):
     email = models.EmailField(unique=True, verbose_name='Email')
 
     phone = models.CharField(max_length=35, **NULLABLE, verbose_name='Телефон')
+    token = models.CharField(max_length=100, verbose_name='Token', **NULLABLE)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
