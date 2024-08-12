@@ -18,7 +18,7 @@
 
     <header>
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-info">
-        <a class="navbar-brand" href="#">Every Day</a>
+        <a class="navbar-brand" href="#">Медицинская диагностика Every Day</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -26,6 +26,9 @@
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
               <a class="nav-link" href="#">Главная <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'clinic:doctor'%}">Специалисты <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Вход</a>

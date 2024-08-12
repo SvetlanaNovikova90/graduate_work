@@ -18,6 +18,18 @@ class Doctor(models.Model):
         verbose_name_plural = "врачи"
 
 
+class Department(models.Model):
+    title = models.CharField(max_length=100, verbose_name="Наименование")
+    description = models.TextField(**NULLABLE, verbose_name="Описание")
+
+    def __str__(self):
+        return f"{self.title}"
+
+    class Meta:
+        verbose_name = "отделение"
+        verbose_name_plural = "отделения"
+
+
 class Service(models.Model):
     title = models.CharField(max_length=100, verbose_name="Наименование")
     description = models.TextField(**NULLABLE, verbose_name="Описание")
@@ -27,6 +39,12 @@ class Service(models.Model):
         on_delete=models.SET_NULL,
         verbose_name="Врач",
     )
+    department = models.ForeignKey(
+        "Department",
+        **NULLABLE,
+        on_delete=models.SET_NULL,
+        verbose_name="отделение",
+    )
     price = models.IntegerField(verbose_name="Цена за услугу")
 
     def __str__(self):
@@ -35,6 +53,3 @@ class Service(models.Model):
     class Meta:
         verbose_name = "услуга"
         verbose_name_plural = "услуги"
-
-
-
