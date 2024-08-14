@@ -1,0 +1,22 @@
+{% extends 'clinic/includes/inc_menu.html'%}
+{% load my_tags %}
+{% block content %}
+
+<div class="container">
+
+<div class="container marketing">
+
+<h1 class="mt-5">Услуги и цены </h1>
+  <!-- Three columns of text below the carousel -->
+  <div class="row">
+
+    <div class="dropdown">
+        {% for department in object_list %}
+        <p> <a class="text-info" href="{% url 'clinic:department_detail' department.pk %}" target="_blank">{{ department.title }}</a></p>
+{% endfor %}
+</div>
+
+   </div>
+  </div>
+</div>
+{% endblock %}
