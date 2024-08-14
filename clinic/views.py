@@ -1,7 +1,12 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 
-from clinic.models import Doctor
+from clinic.models import Doctor, Carousel
+
+
+class CarouselListView(ListView):
+    model = Carousel
+    template_name = "clinic/index.html"
 
 
 class DoctorListView(ListView):

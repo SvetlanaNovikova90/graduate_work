@@ -3,6 +3,18 @@ from django.db import models
 NULLABLE = {"blank": True, "null": True}
 
 
+class Carousel(models.Model):
+    title = models.CharField(max_length=100, verbose_name="Наименование")
+    description = models.TextField(**NULLABLE, verbose_name="Описание")
+    image_ph = models.ImageField(
+        upload_to="carousel/", **NULLABLE, verbose_name="Изображение"
+    )
+
+
+    def __str__(self):
+        return f"{self.title}"
+
+
 class Doctor(models.Model):
     name = models.CharField(max_length=100, verbose_name="ФИО врача")
     description = models.TextField(**NULLABLE, verbose_name="Описание")
