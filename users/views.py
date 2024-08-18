@@ -4,12 +4,12 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.shortcuts import redirect, get_object_or_404, render
 from django.urls import reverse_lazy, reverse
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, DetailView
 
 from config.settings import EMAIL_HOST_USER
-from users.forms import UserRegisterForm, UserProfileForm, VerificationCodeForm
+from users.forms import UserRegisterForm, UserProfileForm, VerificationCodeForm, RecordingForm
 
-from users.models import User
+from users.models import User, Recording
 from django.contrib.auth import login
 
 from django.urls import reverse_lazy
@@ -59,13 +59,14 @@ class VerifyEmailView(View):
     def post(self, request, pk):
         user = get_object_or_404(User, pk=pk)
         form = VerificationCodeForm(request.POST)
+
         # проверка кода
         if form.is_valid() and user.verification_code == form.cleaned_data['verification_code']:
             # юзер становится активным
             user.is_active = True
             user.save()
             login(request, user)
-            return redirect('users:email_activated')
+            return redirect('clinic:home')
         return render(request, self.template_name, {'form': form, 'user': user})
 
 
@@ -111,6 +112,25 @@ def restore_password(request):
             recipient_list=[user.email]
         )
         user.set_password(new_password)
+        user.is_active = True
         user.save()
         return redirect(reverse('users:login'))
     return render(request, "users/restore_password.html")
+
+
+class UserDetailView(DetailView):
+    model = User
+    template_name = "users/user_detail.html"
+
+
+class RecordingCreateView(CreateView):
+    model = Recording
+    template_name = "users/recording_create.html"
+    form_class = RecordingForm
+    success_url = reverse_lazy('clinic:home')
+
+    def form_valid(self, form):
+        user = self.request.user
+        form.instance.user = user
+        response = super().form_valid(form)
+        return response

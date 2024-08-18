@@ -4,9 +4,9 @@
   <h2>Введите код</h2>
   <form method="post" action="">
     <h2>Введите код верификации</h2>
-    <form method="post" action="{% url 'users:verify_email' pk=user.pk %}">
+    <form method="post" action="{% url 'users:verify_email' user.pk %}">
       {% csrf_token %}
       {{ form.as_p }}
-      <button type="submit" ">Подтвердить</button>
+      <button type="submit">Подтвердить</button>
     </form>
 {% endblock %}

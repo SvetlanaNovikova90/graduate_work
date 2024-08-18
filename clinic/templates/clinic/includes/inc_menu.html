@@ -30,9 +30,11 @@
             <li class="nav-item active">
               <a class="nav-link" href="{% url 'clinic:doctor'%}">Специалисты <span class="sr-only">(current)</span></a>
             </li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'clinic:department' %}" target="_blank">Услуги и цены</a></li>
             {% if user.is_authenticated %}
             <li class="nav-item"><a class="nav-link" href="{% url 'users:logout'%}" target="_blank">Выход</a></li>
-          <li class="nav-item"><a class="nav-link" href="#" target="_blank">Личный кабинет</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'users:user_detail' user.pk %}" target="_blank">Личный кабинет</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'users:recording_create' %}" target="_blank">Записаться на прием</a></li>
             {% else %}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'users:login'%}">Вход</a>
@@ -41,9 +43,7 @@
               <a class="nav-link" href="{% url 'users:register'%}">Регистрация</a>
             </li>
             {% endif %}
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
+
           </ul>
           <form class="form-inline mt-2 mt-md-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
