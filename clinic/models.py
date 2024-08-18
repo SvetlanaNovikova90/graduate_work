@@ -15,6 +15,17 @@ class Carousel(models.Model):
         return f"{self.title}"
 
 
+class Contact(models.Model):
+    title = models.CharField(max_length=100, verbose_name="Название")
+    address = models.CharField(max_length=100, verbose_name="Адрес")
+    phone = models.CharField(max_length=100, verbose_name="Телефон")
+    opening_hours = models.CharField(max_length=100, verbose_name="Часы приема")
+    map = models.ImageField(
+        upload_to="contact/", **NULLABLE, verbose_name="Карта"
+    )
+
+
+
 class Doctor(models.Model):
     name = models.CharField(max_length=100, verbose_name="ФИО врача")
     description = models.TextField(**NULLABLE, verbose_name="Описание")

@@ -3,7 +3,6 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -12,8 +11,17 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = True
 
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:8000',
+    'http://*youripaddress*',
+]
+
 ALLOWED_HOSTS = []
 
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:8000',
+    'http://*youripaddress*',
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -57,7 +65,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -68,7 +75,6 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -85,7 +91,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
@@ -93,7 +98,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 STATIC_URL = 'static/'
 
@@ -117,7 +121,7 @@ EMAIL_HOST = 'smtp.yandex.ru'  # адрес почтового сервера т
 EMAIL_PORT = 465  # порт
 EMAIL_USE_SSL = True
 EMAIL_HOST_USER = "seaciliya2012@yandex.ru"
-EMAIL_HOST_PASSWORD = "lgpfprntdkupsdcs"
+EMAIL_HOST_PASSWORD = "blpatlfwzhldpoyt"
 EMAIL_USE_TLS = False
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

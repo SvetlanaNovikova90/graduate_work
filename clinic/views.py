@@ -1,13 +1,19 @@
 from django.shortcuts import render
+from django.views import View
 from django.views.generic import ListView, DetailView
 
-from clinic.models import Doctor, Carousel, Department, Service
+from clinic.models import Doctor, Carousel, Department, Service, Contact
 from clinic.services import get_cached_subjects_for_service
 
 
 class CarouselListView(ListView):
     model = Carousel
     template_name = "clinic/index.html"
+
+
+class ContactListView(ListView):
+    model = Contact
+    template_name = "clinic/contact.html"
 
 
 class DoctorListView(ListView):
