@@ -10,7 +10,6 @@ class Carousel(models.Model):
         upload_to="carousel/", **NULLABLE, verbose_name="Изображение"
     )
 
-
     def __str__(self):
         return f"{self.title}"
 
@@ -23,7 +22,6 @@ class Contact(models.Model):
     map = models.ImageField(
         upload_to="contact/", **NULLABLE, verbose_name="Карта"
     )
-
 
 
 class Doctor(models.Model):
