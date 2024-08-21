@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: "cwor7"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "1101"
+      PGDATA: /var/lib/postgresql/data/pgdata
+
+  app:
+    build: .
+    command: python manage.py migrate && python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    env_file:
+      - .env
+

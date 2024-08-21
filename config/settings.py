@@ -16,7 +16,7 @@ CSRF_TRUSTED_ORIGINS = [
     'http://*youripaddress*',
 ]
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:8000',
@@ -68,11 +68,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "cwor7",
-        "USER": "postgres",
-        "PASSWORD": "1101",
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        "NAME": os.getenv('POSTGRES_DB'),
+        "USER": os.getenv('POSTGRES_USER'),
+        "PASSWORD": os.getenv('POSTGRES_PASSWORD'),
+        'HOST': os.getenv('POSTGRES_HOST'),
+        'PORT': os.getenv('POSTGRES_PORT'),
     }
 }
 
@@ -120,8 +120,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # из Джанг
 EMAIL_HOST = 'smtp.yandex.ru'  # адрес почтового сервера только для яндекс
 EMAIL_PORT = 465  # порт
 EMAIL_USE_SSL = True
-EMAIL_HOST_USER = "seaciliya2012@yandex.ru"
-EMAIL_HOST_PASSWORD = "blpatlfwzhldpoyt"
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = False
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
