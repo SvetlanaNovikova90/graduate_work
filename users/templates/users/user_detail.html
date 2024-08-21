@@ -4,19 +4,44 @@
 
     <main role="main">
 
-
-<div class="container">
-
 <div class="container marketing">
+<div class="album py-5 bg-light">
+<div class="container">
+  <div class="row">
+    <div class="col-5">
 
-<h3 class="mt-5">Здравствуйте, {{object.first_name}} </h3>
+
+    <h3> <p class="mt-5">Здравствуйте, {{object.first_name}} </p></h3>
     <h4> <p class="mt-5">Ваши данные: </p>
     <p class="mt-2">Телефон - {{object.phone}} </p>
     <p class="mt-2">Email - {{object.email}} </p>
+
+
     </h4>
-    <a class="btn btn-sm btn-outline-secondary mt-5" href="{% url 'clinic:department'%}">Редактировать</a>
+
+    <a class="btn btn-sm btn-outline-secondary mt-5" href="{% url 'users:profile' object.pk%}">Редактировать</a>
+</div>
+    <div class="col-7">
+
+             <h2 class="mt-5">Активные записи: </h2>
+        {% for record in recording %}
+
+         {% if record.status == True %}
+        <p>Запись на {{ record.service }}, Время и дата: {{ record.datetime_rec }} </p>
+        {% endif %}
+        {% endfor %}
+        <h2 class="mt-5">Прошедшие записи: </h2>
+         {% for record in recording %}
+         {% if record.status == False %}
+        <p>Запись на {{ record.service }}, Время и дата: {{ record.datetime_rec }} </p>
+        {% endif %}
+
+{% endfor %}
+    </div>
+</div>
 
         </div>
+    </div>
 
                   </div>
 

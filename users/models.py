@@ -43,7 +43,7 @@ class Recording(models.Model):
         on_delete=models.SET_NULL,
         verbose_name="Врач",
     )
-    datetime = models.DateTimeField(verbose_name='дата создания')
+    datetime_rec = models.DateTimeField(verbose_name='дата приема')
     status = models.BooleanField(default=True, verbose_name='Активность')
 
     def __str__(self):

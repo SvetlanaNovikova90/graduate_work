@@ -1,12 +1,9 @@
-import random
-
 from django.conf import settings
 from django.core.mail import send_mail
 from django.shortcuts import redirect, get_object_or_404, render
 from django.urls import reverse_lazy, reverse
-from django.views.generic import CreateView, UpdateView, DetailView
+from django.views.generic import CreateView, UpdateView, DetailView, ListView
 
-from config.settings import EMAIL_HOST_USER
 from users.forms import UserRegisterForm, UserProfileForm, VerificationCodeForm, RecordingForm
 
 from users.models import User, Recording
@@ -15,7 +12,12 @@ from django.contrib.auth import login
 from django.urls import reverse_lazy
 from django.views import View
 
+from users.services import get_cached_subjects_for_recording
 from utils import generate_password
+import datetime
+import pytz
+
+utc=pytz.UTC
 
 
 class RegisterView(CreateView):
@@ -121,6 +123,19 @@ def restore_password(request):
 class UserDetailView(DetailView):
     model = User
     template_name = "users/user_detail.html"
+
+    def is_status(self):
+        recording = Recording.objects.all()
+        for record in recording:
+            if record.datetime_rec.replace(tzinfo=None) <= datetime.datetime.now().replace(tzinfo=None):
+                record.status = False
+                record.save()
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        self.is_status()
+        context_data['recording'] = get_cached_subjects_for_recording(self.object.pk)
+        return context_data
 
 
 class RecordingCreateView(CreateView):
